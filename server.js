@@ -1,6 +1,9 @@
-const express = require('express');
-const { Pool } = require('pg');
-const cors = require('cors')
+import express from "express";
+import postgres from "postgres";
+import dotenv from "dotenv";
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import pg from "pg";
 
 
 
@@ -13,9 +16,11 @@ const cors = require('cors')
 //   port: 5432, // default PostgreSQL port
 // });
 
-const pool = new Pool({
+const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
 });
+
+const PORT = process.env.PORT;
 
 // Create a new Express app
 const app = express();
@@ -93,7 +98,7 @@ app.delete('/todos/:id', async (req, res) => {
 });
 
 // Start the server
-app.listen(3001, () => {
+app.listen(PORT, () => {
   console.log('Server started on port 3001');
 });
 
